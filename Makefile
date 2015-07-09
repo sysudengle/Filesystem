@@ -1,13 +1,13 @@
 CC = gcc
 
 #all : ext2_ls ext2_mkdir ext2_cp ext2_ln ext2_rm
-all : ext2_ls 
+all : ext2_ls ext2_mkdir
 
 ext2_ls: ext2_ls.o
 	$(CC) -Wall -o ext2_ls ext2_ls.o
 
-#ext2_mkdir: ext2_mkdir.o
-#	$(CC) -Wall -o ext2_mkdir ext2_mkdir.o
+ext2_mkdir: ext2_mkdir.o
+	$(CC) -Wall -o ext2_mkdir ext2_mkdir.o
 
 #ext2_cp: ext2_cp.o
 #	$(CC) -Wall -o ext2_cp ext2_cp.o

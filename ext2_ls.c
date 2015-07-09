@@ -19,7 +19,7 @@ struct ext2_inode *getInode(int idx, unsigned char *dk, int offset)
 
 char *getBlock(unsigned char *dk, int blk_num)
 {
-	return dk + (blk_num) * EXT2_BLOCK_SIZE;
+	return (char *)dk + (blk_num) * EXT2_BLOCK_SIZE;
 }
 
 void listDir(char *img, char *dir)
@@ -35,7 +35,7 @@ void listDir(char *img, char *dir)
 
     // super block struct pointer
     int block_size = 1024;
-    struct ext2_super_block *sb = (struct ext2_super_block *)(disk + block_size);
+    //struct ext2_super_block *sb = (struct ext2_super_block *)(disk + block_size);
 	//printf("%d\n", sb->s_log_block_size);
     struct ext2_group_desc *bg = (struct ext2_group_desc *)(disk + 2 * block_size);
     //struct ext2_inode *inode = (struct ext2_inode *)(disk + bg->bg_inode_table*block_size);
@@ -70,7 +70,7 @@ void listDir(char *img, char *dir)
 		struct ext2_inode *pinode = getInode(search_inode, disk, bg->bg_inode_table * block_size);
 		find_dir = 0;
 
-		for(i = 0; i < 12 && pinode->i_block[i] != NULL && !find_dir; i++)
+		for(i = 0; i < 12 && pinode->i_block[i] != 0 && !find_dir; i++)
 		{
 			//printf("%d %d\n", pinode->i_block[i], pinode->i_ctime);
 			struct ext2_dir_entry_2 *dir_entry = (struct ext2_dir_entry_2 *) getBlock(disk, pinode->i_block[i]);
@@ -82,11 +82,9 @@ void listDir(char *img, char *dir)
 				//printf("heare\n");
 				dir_entry = (void *) dir_entry + rec_len;
 				//printf("%.*s\n", dir_entry->name_len, dir_entry->name);
-				strncmp(pch, dir_entry->name, dir_entry->name_len);
 				//printf("%s %d\n", pch, dir_entry->name_len);
 
 				char path_match = 0;
-				char ss= 0;
 				if(strncmp(pch, dir_entry->name, dir_entry->name_len) == 0 && strlen(pch) == dir_entry->name_len)
 				{
 					path_match = 1;
@@ -121,7 +119,7 @@ void listDir(char *img, char *dir)
 
 	// it is dir
 	struct ext2_inode *pinode = getInode(search_inode, disk, bg->bg_inode_table * block_size);
-	for(i = 0; i < 12 && pinode->i_block[i] != NULL; i++)
+	for(i = 0; i < 12 && pinode->i_block[i] != 0; i++)
 	{
 		int acc_len = 0;
 		int rec_len = 0;
