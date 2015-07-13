@@ -220,4 +220,7 @@ enum {
 #define INODE_PTR(idx,disk,offset) ((struct ext2_inode *)(disk+offset+idx*128/EXT2_BLOCK_SIZE+((idx-1)*128)%EXT2_BLOCK_SIZE))
 #define INODES_PER_BLOCK 8
 #define INODE_SIZE 128
-
+#define INODE_BITMAP_SIZE 32
+#define BLOCK_NUM 128
+#define BLOCK_BITMAP_NUM 4
+#define DIR_ENTRY_BASE_SIZE 8

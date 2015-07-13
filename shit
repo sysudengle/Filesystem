@@ -1,14 +1,40 @@
-9
-2
+1436518248
+rec len: 12
 .
-2
+rec len: 12
 ..
-11
+rec len: 20
 lost+found
-15
+rec len: 12
 dl
-12
+rec len: 12
 dd
-13
+rec len: 12
 dir
-0
+rec len: 16
+os
+rec len: 928
+jb
+parent Inode: 2
+Dir name: j2
+23
+free inode num: 12
+allocate free node: 23
+allocate block: 26
+blocks: 26
+9
+0 9
+xd
+j2
+xd
+0 0
+12 12
+12 24
+20 44
+12 56
+12 68
+12 80
+16 96
+xd
+0 928
+allocate block: 26

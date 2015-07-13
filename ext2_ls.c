@@ -67,7 +67,9 @@ void listDir(char *img, char *dir)
 	while(pch != NULL)
 	{
 		char *next_pch = strtok(NULL, "/");
-		struct ext2_inode *pinode = getInode(search_inode, disk, bg->bg_inode_table * block_size);
+		//struct ext2_inode *pinode = getInode(search_inode, disk, bg->bg_inode_table * block_size);
+		struct ext2_inode *i_head = (struct ext2_inode *)(disk + bg->bg_inode_table * EXT2_BLOCK_SIZE);
+		struct ext2_inode *pinode = (struct ext2_inode *)(i_head + search_inode - 1);
 		find_dir = 0;
 
 		for(i = 0; i < 12 && pinode->i_block[i] != 0 && !find_dir; i++)
@@ -118,7 +120,9 @@ void listDir(char *img, char *dir)
 	}
 
 	// it is dir
-	struct ext2_inode *pinode = getInode(search_inode, disk, bg->bg_inode_table * block_size);
+	//struct ext2_inode *pinode = getInode(search_inode, disk, bg->bg_inode_table * block_size);
+	struct ext2_inode *i_head = (struct ext2_inode *)(disk + bg->bg_inode_table * EXT2_BLOCK_SIZE);
+	struct ext2_inode *pinode = (struct ext2_inode *)(i_head + search_inode - 1);
 	for(i = 0; i < 12 && pinode->i_block[i] != 0; i++)
 	{
 		int acc_len = 0;
